@@ -1,0 +1,20 @@
+{
+  "appTitle": "Duplicate Finder",
+  "welcomeMessage": "Welcome to the Duplicate Finder application!",
+  "instructions": {
+    "step1": "Select the folders you want to scan for duplicates.",
+    "step2": "Click on the 'Scan' button to start the scanning process.",
+    "step3": "Review the results and take action as needed."
+  },
+  "results": {
+    "duplicatesFound": "Duplicates found: {{count}}",
+    "noDuplicates": "No duplicates found.",
+    "delete": "Delete",
+    "keep": "Keep"
+  },
+  "errors": {
+    "folderNotSelected": "Please select at least one folder to scan.",
+    "scanFailed": "An error occurred while scanning. Please try again."
+  },
+  "footer": "Thank you for using Duplicate Finder!"
+}
