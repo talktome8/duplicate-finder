@@ -1,104 +1,81 @@
-# duplicate-finder/README.md
+# media-typer
 
-# Duplicate Finder Application
+[![NPM Version][npm-image]][npm-url]
+[![NPM Downloads][downloads-image]][downloads-url]
+[![Node.js Version][node-version-image]][node-version-url]
+[![Build Status][travis-image]][travis-url]
+[![Test Coverage][coveralls-image]][coveralls-url]
 
-This project is a Duplicate Finder application designed to help users identify and manage duplicate files on their systems. 
-
-## Features
-
-- Scans specified directories for duplicate files.
-- Provides a user-friendly interface for managing duplicates.
-- Supports multiple languages.
-- Offers various themes for customization.
-
-## Project Structure
-
-```
-duplicate-finder
-├── src
-│   ├── index.html                # Main page of the application
-│   ├── css                       # CSS styles
-│   │   ├── style.css             # Main styles
-│   │   └── themes                # Various themes (optional)
-│   │       └── dark-theme.css    # Dark theme
-│   ├── js                        # JavaScript files
-│   │   ├── app.js                # Application initialization and settings
-│   │   ├── ui-controller.js      # User interface management and interactions
-│   │   ├── scanner.js            # Main scanning engine
-│   │   ├── hash-worker.js        # Hash computation worker
-│   │   ├── file-utils.js         # Helper functions for file handling
-│   │   ├── image-utils.js        # Helper functions for image handling
-│   │   └── statistics.js         # Statistical analysis and visualization
-│   ├── lib                       # External libraries (if needed)
-│   │   └── charts                # Visualization libraries (optional)
-│   └── resources                 # Additional resources
-│       ├── icons                 # Icons
-│       └── locales               # Language files (if you want to support multiple languages)
-│           ├── he.json           # Hebrew
-│           └── en.json           # English
-├── package.json                  # Project configuration file
-└── README.md                     # Documentation for the project
-```
+Simple RFC 6838 media type parser
 
 ## Installation
 
-1. Clone the repository.
-2. Navigate to the project directory.
-3. Install dependencies using `npm install`.
+```sh
+$ npm install media-typer
+```
 
-## Usage
+## API
 
-1. Open `index.html` in a web browser.
-2. Follow the on-screen instructions to scan for duplicates.
+```js
+var typer = require('media-typer')
+```
 
-## Contributing
+### typer.parse(string)
 
-Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes. 
+```js
+var obj = typer.parse('image/svg+xml; charset=utf-8')
+```
+
+Parse a media type string. This will return an object with the following
+properties (examples are shown for the string `'image/svg+xml; charset=utf-8'`):
+
+ - `type`: The type of the media type (always lower case). Example: `'image'`
+
+ - `subtype`: The subtype of the media type (always lower case). Example: `'svg'`
+
+ - `suffix`: The suffix of the media type (always lower case). Example: `'xml'`
+
+ - `parameters`: An object of the parameters in the media type (name of parameter always lower case). Example: `{charset: 'utf-8'}`
+
+### typer.parse(req)
+
+```js
+var obj = typer.parse(req)
+```
+
+Parse the `content-type` header from the given `req`. Short-cut for
+`typer.parse(req.headers['content-type'])`.
+
+### typer.parse(res)
+
+```js
+var obj = typer.parse(res)
+```
+
+Parse the `content-type` header set on the given `res`. Short-cut for
+`typer.parse(res.getHeader('content-type'))`.
+
+### typer.format(obj)
+
+```js
+var obj = typer.format({type: 'image', subtype: 'svg', suffix: 'xml'})
+```
+
+Format an object into a media type string. This will return a string of the
+mime type for the given object. For the properties of the object, see the
+documentation for `typer.parse(string)`.
 
 ## License
 
-This project is licensed under the MIT License.
+[MIT](LICENSE)
 
-# מוצא הקבצים הכפולים
-
-כלי פשוט ויעיל למציאת קבצים כפולים במחשב שלך. עובד ישירות בדפדפן, ללא צורך בהתקנה!
-
-## תכונות עיקריות
-
-- 🔍 מציאת קבצים כפולים לפי שם ותוכן
-- 📊 הצגת סטטיסטיקות מפורטות
-- 📁 תמיכה בתיקיות גדולות
-- 🔒 עובד לוקאלית בדפדפן - הקבצים שלך נשארים במחשב שלך
-- 🎯 ממשק משתמש פשוט ונוח
-
-## איך להשתמש?
-
-1. פתח את [הקישור לאפליקציה](https://talktome8.github.io/duplicate-finder/)
-2. לחץ על כפתור "בחר תיקייה"
-3. בחר את התיקייה שברצונך לסרוק
-4. המתן לסיום הסריקה
-5. בחן את התוצאות וטפל בקבצים הכפולים
-
-## טיפים
-
-- ניתן למיין את התוצאות לפי גודל, שם או מספר עותקים
-- לחיצה על "העתק נתיב" תעתיק את מיקום הקובץ ללוח
-- ניתן לעצור את הסריקה בכל שלב
-- התוצאות מראות גם את גודל הקבצים הכפולים
-
-## פיתוח
-
-המערכת פותחה באמצעות:
-- JavaScript
-- HTML5
-- CSS3
-- File System Access API
-
-## רישיון
-
-MIT License - ניתן להשתמש, לשנות ולהפיץ בחופשיות
-
-## קישורים
-
-- [דף הפרויקט ב-GitHub](https://github.com/talktome8/duplicate-finder)
-- [דווח על באג](https://github.com/talktome8/duplicate-finder/issues)
+[npm-image]: https://img.shields.io/npm/v/media-typer.svg?style=flat
+[npm-url]: https://npmjs.org/package/media-typer
+[node-version-image]: https://img.shields.io/badge/node.js-%3E%3D_0.6-brightgreen.svg?style=flat
+[node-version-url]: http://nodejs.org/download/
+[travis-image]: https://img.shields.io/travis/jshttp/media-typer.svg?style=flat
+[travis-url]: https://travis-ci.org/jshttp/media-typer
+[coveralls-image]: https://img.shields.io/coveralls/jshttp/media-typer.svg?style=flat
+[coveralls-url]: https://coveralls.io/r/jshttp/media-typer
+[downloads-image]: https://img.shields.io/npm/dm/media-typer.svg?style=flat
+[downloads-url]: https://npmjs.org/package/media-typer
